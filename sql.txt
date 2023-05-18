@@ -1,0 +1,29 @@
+-- Comando para crear la tabla de usuarios
+CREATE TABLE users (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nombre VARCHAR(255) NOT NULL,
+  contrasena VARCHAR(255) NOT NULL,
+  fecha_registro DATE,
+  foto_perfil VARCHAR(255),
+  descripcion VARCHAR(255)
+);
+
+-- Comando para crear la tabla de amistades
+CREATE TABLE conections (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  usuario1 INT NOT NULL,
+  usuario2 INT NOT NULL,
+  fecha_amistad DATE,
+  FOREIGN KEY (usuario1) REFERENCES users(id),
+  FOREIGN KEY (usuario2) REFERENCES users(id)
+);
+
+CREATE TABLE posts (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  id_user INT NOT NULL,
+  title VARCHAR(255),
+  description TEXT,
+  date_post DATE,
+  img_post VARCHAR(255),
+  FOREIGN KEY (id_user) REFERENCES users(id)
+);

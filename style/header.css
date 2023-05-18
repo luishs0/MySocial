@@ -1,0 +1,21 @@
+.navbar {
+    height: 4rem;
+    font-size: 1.2rem;
+
+    background-color: #050a30 !important;
+}
+
+.navbar-collapse {
+    background-color: #050a30 !important;
+   
+    border-radius: 0 0 1rem 1rem;
+}
+
+.nav-link {
+    text-align: center;
+}
+
+.navbar-brand, .container-fluid, .navbar-logo {
+    height: 100%;
+}
+
