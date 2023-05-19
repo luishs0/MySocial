@@ -28,7 +28,7 @@
             <div class="navbar-nav">
                 <a class="nav-link <?php if ($_SERVER['PHP_SELF'] == "/luis_code/mySocial/home.php") { echo "active"; }; ?>" aria-current="page" href="home.php">Home</a>
                 <a class="nav-link <?php if ($_SERVER['PHP_SELF'] == "/luis_code/mySocial/myprofile.php") { echo "active"; }; ?>" href="myprofile.php">My Profile</a>
-                <a class="nav-link <?php if ($_SERVER['PHP_SELF'] == "/luis_code/mySocial/people.php") { echo "active"; }; ?>" href="#">People</a>
+                <a class="nav-link <?php if ($_SERVER['PHP_SELF'] == "/luis_code/mySocial/people.php") { echo "active"; }; ?>" href="people.php">People</a>
                 <a class="nav-link" href="logout.php">Logout</a>
             </div>
         </div>
