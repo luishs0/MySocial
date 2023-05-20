@@ -4,21 +4,43 @@ require_once "partials/header.php";
 
 session_start();
 
-$stmt = $conn->prepare("SELECT * FROM users WHERE username = :username");
-$stmt->bindParam(":username", $_GET['username']);
-$stmt->execute();
+if (isset($_GET) && !empty($_GET) && $_GET['username'] != "") {
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username");
+    $stmt->bindParam(":username", $_GET['username']);
+    $stmt->execute();
 
-$userArray = $stmt->fetchAll(PDO::FETCH_ASSOC);
-$user = $userArray[0];
+    $userArray = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $user = $userArray[0];
 
 
 
-$getPosts = $conn->prepare("SELECT * FROM posts WHERE id_user = :id_user");
-$getPosts->bindParam(":id_user", $user['id']);
-$getPosts->execute();
+    $getPosts = $conn->prepare("SELECT * FROM posts WHERE id_user = :id_user");
+    $getPosts->bindParam(":id_user", $user['id']);
+    $getPosts->execute();
 
-$postsArray = $getPosts->fetchAll(PDO::FETCH_ASSOC);
-// print_r($postsArray);
+    $postsArray = $getPosts->fetchAll(PDO::FETCH_ASSOC);
+    // print_r($postsArray);
+
+
+
+    $getFollow = $conn->prepare("SELECT * FROM conections WHERE user1 = :user1 AND user2 = :user2");
+    $getFollow->bindParam(':user1', $_SESSION['user']['id']);
+    $getFollow->bindParam(':user2', $user['id']);
+
+    $getFollow->execute();
+
+    if ($getFollow->rowCount() > 0) {
+        $getFollow = true;
+    } else {
+        $getFollow = false;
+    }
+} else if ($_GET['username'] == "") {
+    header("Location: people.php");
+} else {
+    header("Location: logout.php");
+}
+
+
 
 ?>
 
@@ -43,10 +65,15 @@ $postsArray = $getPosts->fetchAll(PDO::FETCH_ASSOC);
                 <?php if ($user["bio"]) { ?>
                     <p> <?php echo $user["bio"] ?> </p>
                 <?php } else { ?>
-                    <p>Write a bio</p>
+                    <p></p>
                 <?php } ?>
             </div>
 
+            <?php if ($getFollow) { ?>
+                <a href="stopFollowing.php?user1=<?php echo $_SESSION['user']['id']; ?>&user2=<?php echo $user['id']; ?>" class="btn btn-danger">Stop Following</a>
+            <?php } else { ?>
+                <a href="follow.php?user1=<?php echo $_SESSION['user']['id']; ?>&user2=<?php echo $user['id']; ?>" class="btn btn-success">Follow</a>
+            <?php } ?>
 
 
             <?php if (count($postsArray) > 0) { ?>
