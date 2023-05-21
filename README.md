@@ -1,4 +1,4 @@
-<h1>My Social</h1>
+<h1>Red Social con PHP puro</h1>
 
 <p> 
   Se trata de una red social en la que puedes compartir posts con tus amigos, teniendo la posibilidad de tener tu perfil, editarlo, subir publicaciones, seguir a otros
