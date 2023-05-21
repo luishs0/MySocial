@@ -17,11 +17,12 @@ if (isset($_POST) && !empty($_POST)) {
 
             move_uploaded_file($temporalRoot, $finalRoot);
 
-            $stmt = $conn->prepare("INSERT INTO posts (title, description, img_post, id_user) VALUES (:title, :description, :img_post, :id_user)");
+            $stmt = $conn->prepare("INSERT INTO posts (title, description, img_post, id_user, date_post) VALUES (:title, :description, :img_post, :id_user, :date_post)");
             $stmt->bindParam(":title", $_POST['title']);
             $stmt->bindParam(":description", $_POST['description']);
             $stmt->bindValue(":img_post", $finalRoot);
             $stmt->bindParam(":id_user", $_SESSION['user']['id']);
+            $stmt->bindParam(":date_post", date('Y-m-d'));
             $stmt->execute();
 
 
@@ -34,11 +35,12 @@ if (isset($_POST) && !empty($_POST)) {
 
             move_uploaded_file($temporalRoot, $finalRoot);
 
-            $stmt = $conn->prepare("INSERT INTO posts (title, description, img_post, id_user) VALUES (:title, :description, :img_post, :id_user)");
+            $stmt = $conn->prepare("INSERT INTO posts (title, description, img_post, id_user, date_post) VALUES (:title, :description, :img_post, :id_user, :date_post)");
             $stmt->bindParam(":title", $_POST['title']);
             $stmt->bindParam(":description", $_POST['description']);
             $stmt->bindValue(":img_post", $finalRoot);
             $stmt->bindParam(":id_user", $_SESSION['user']['id']);
+            $stmt->bindParam(":date_post", date('Y-m-d'));
             $stmt->execute();
 
             header("Location: home.php");
@@ -50,11 +52,12 @@ if (isset($_POST) && !empty($_POST)) {
 
             move_uploaded_file($temporalRoot, $finalRoot);
 
-            $stmt = $conn->prepare("INSERT INTO posts (title, description, img_post, id_user) VALUES (:title, :description, :img_post, :id_user)");
+            $stmt = $conn->prepare("INSERT INTO posts (title, description, img_post, id_user, date_post) VALUES (:title, :description, :img_post, :id_user, :date_post)");
             $stmt->bindParam(":title", $_POST['title']);
             $stmt->bindParam(":description", $_POST['description']);
             $stmt->bindValue(":img_post", $finalRoot);
             $stmt->bindParam(":id_user", $_SESSION['user']['id']);
+            $stmt->bindParam(":date_post", date('Y-m-d'));
             $stmt->execute();
 
 
@@ -63,7 +66,9 @@ if (isset($_POST) && !empty($_POST)) {
             $finalRoot = "";
             $error = "The post image must be jpg, png or jpeg";
         } 
-    } 
+    } else {
+        $error = "All fields must be completed";
+    }
 }
 ?>
 

@@ -4,6 +4,11 @@ require_once "partials/header.php";
 
 session_start();
 
+if (empty($_SESSION["user"])) {
+    header("Location: index.php");
+    return;
+};
+
 if (isset($_GET) && !empty($_GET) && $_GET['username'] != "") {
     $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username");
     $stmt->bindParam(":username", $_GET['username']);

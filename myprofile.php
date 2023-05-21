@@ -4,6 +4,11 @@ require_once "partials/header.php";
 
 session_start();
 
+if (empty($_SESSION["user"])) {
+    header("Location: index.php");
+    return;
+};
+
 
 $stmt = $conn->prepare("SELECT * FROM posts WHERE id_user = :id_user");
 $stmt->bindParam(":id_user", $_SESSION['user']['id']);

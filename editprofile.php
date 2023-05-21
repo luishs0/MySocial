@@ -9,6 +9,11 @@ if (empty($_SESSION["user"])) {
     return;
 };
 
+if (empty($_SESSION["user"])) {
+    header("Location: index.php");
+    return;
+};
+
 $rootImgForm = $_SESSION['user']['profile_img'];
 
 

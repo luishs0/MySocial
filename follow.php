@@ -3,6 +3,11 @@ require "database.php";
 
 session_start();
 
+if (empty($_SESSION["user"])) {
+    header("Location: index.php");
+    return;
+};
+
 // var_dump($_GET);
 
 if ($_SESSION['user']['id'] != $_GET['user1']) {
