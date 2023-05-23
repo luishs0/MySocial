@@ -20,7 +20,7 @@ $rootImgForm = $_SESSION['user']['profile_img'];
 
 if (isset($_POST) && !empty($_POST)) {
 
-    if (!empty($_FILES['profile_img']['name'])) {
+    if (!empty($_FILES['profile_img']['name'] && ($_FILES['profile_img']['type'] == "image/png" || $_FILES['profile_img']['type'] == "image/jpg"  || $_FILES['profile_img']['type'] == "image/jpeg"))) {
         $fileName = $_FILES['profile_img']['name'];
         $temporalRoot = $_FILES['profile_img']['tmp_name'];
         $finalRoot = 'user_img/' . $fileName;
