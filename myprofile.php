@@ -40,7 +40,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php if ($_SESSION["user"]["bio"]) { ?>
                     <p> <?php echo $_SESSION["user"]["bio"] ?> </p>
                 <?php } else { ?>
-                    <p>Write a bio</p>
+                    <p>Not bio yet</p>
                 <?php } ?>
             </div>
 
@@ -59,6 +59,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <h5 class="card-title"><?php echo $post['title']; ?></h5>
                                         <p class="card-text"><?php echo $post['description']; ?></p>
                                     </div>
+                                    <a style="width: 100px; margin: auto; margin-bottom: 1rem" class="btn btn-danger" href="deletePost.php?id=<?php echo $post['id']; ?>">Delete</a>
                                 </div>
                             </div>
                             

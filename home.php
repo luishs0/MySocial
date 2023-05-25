@@ -42,7 +42,7 @@ foreach ($currentConectionsArray as $key => $conection) {
 $cucquery = implode(',', $currentUserConections);
 //print_r($cucquery);
 
-$postsToShowQuery = $conn->prepare("SELECT * FROM posts WHERE id_user IN ($cucquery) ORDER BY date_post");
+$postsToShowQuery = $conn->prepare("SELECT * FROM posts WHERE id_user IN ($cucquery) ORDER BY date_post DESC");
 $postsToShowQuery->execute();
 
 $postsToShow = $postsToShowQuery->fetchAll(PDO::FETCH_ASSOC);

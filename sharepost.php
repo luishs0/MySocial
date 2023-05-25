@@ -8,67 +8,73 @@ session_start();
 //var_dump($_FILES['img_post']);
 if (isset($_POST) && !empty($_POST)) {
 
-    if (!empty($_FILES['img_post']['name'])) {
-
-        if ($_FILES['img_post']['type'] == "image/png") {
-            $fileName = $_SESSION['user']['id']."_".date('Y-m-d_H-i-s').".png";
-            $temporalRoot = $_FILES['img_post']['tmp_name'];
-            $finalRoot = 'post_img/' . $fileName;
-
-            move_uploaded_file($temporalRoot, $finalRoot);
-
-            $stmt = $conn->prepare("INSERT INTO posts (title, description, img_post, id_user, date_post) VALUES (:title, :description, :img_post, :id_user, :date_post)");
-            $stmt->bindParam(":title", $_POST['title']);
-            $stmt->bindParam(":description", $_POST['description']);
-            $stmt->bindValue(":img_post", $finalRoot);
-            $stmt->bindParam(":id_user", $_SESSION['user']['id']);
-            $stmt->bindParam(":date_post", date('Y-m-d'));
-            $stmt->execute();
-
-
-            header("Location: home.php");
-
-        } else if ($_FILES['img_post']['type'] == "image/jpg") {
-            $fileName = $_SESSION['user']['id']."_".date('Y-m-d_H-i-s').".jpg";
-            $temporalRoot = $_FILES['img_post']['tmp_name'];
-            $finalRoot = 'post_img/' . $fileName;
-
-            move_uploaded_file($temporalRoot, $finalRoot);
-
-            $stmt = $conn->prepare("INSERT INTO posts (title, description, img_post, id_user, date_post) VALUES (:title, :description, :img_post, :id_user, :date_post)");
-            $stmt->bindParam(":title", $_POST['title']);
-            $stmt->bindParam(":description", $_POST['description']);
-            $stmt->bindValue(":img_post", $finalRoot);
-            $stmt->bindParam(":id_user", $_SESSION['user']['id']);
-            $stmt->bindParam(":date_post", date('Y-m-d'));
-            $stmt->execute();
-
-            header("Location: home.php");
-
-        } else if ($_FILES['img_post']['type'] == "image/jpeg") {
-            $fileName = $_SESSION['user']['id']."_".date('Y-m-d_H-i-s').".jpeg";
-            $temporalRoot = $_FILES['img_post']['tmp_name'];
-            $finalRoot = 'post_img/' . $fileName;
-
-            move_uploaded_file($temporalRoot, $finalRoot);
-
-            $stmt = $conn->prepare("INSERT INTO posts (title, description, img_post, id_user, date_post) VALUES (:title, :description, :img_post, :id_user, :date_post)");
-            $stmt->bindParam(":title", $_POST['title']);
-            $stmt->bindParam(":description", $_POST['description']);
-            $stmt->bindValue(":img_post", $finalRoot);
-            $stmt->bindParam(":id_user", $_SESSION['user']['id']);
-            $stmt->bindParam(":date_post", date('Y-m-d'));
-            $stmt->execute();
-
-
-            header("Location: home.php");
-        } else {
-            $finalRoot = "";
-            $error = "The post image must be jpg, png or jpeg";
-        } 
+    if ($_POST['title'] == "") {
+        $error = "The name field has to be completed";
     } else {
-        $error = "All fields must be completed";
+        if (!empty($_FILES['img_post']['name'])) {
+
+            if ($_FILES['img_post']['type'] == "image/png") {
+                $fileName = $_SESSION['user']['id']."_".date('Y-m-d_H-i-s').".png";
+                $temporalRoot = $_FILES['img_post']['tmp_name'];
+                $finalRoot = 'post_img/' . $fileName;
+    
+                move_uploaded_file($temporalRoot, $finalRoot);
+    
+                $stmt = $conn->prepare("INSERT INTO posts (title, description, img_post, id_user, date_post) VALUES (:title, :description, :img_post, :id_user, :date_post)");
+                $stmt->bindParam(":title", $_POST['title']);
+                $stmt->bindParam(":description", $_POST['description']);
+                $stmt->bindValue(":img_post", $finalRoot);
+                $stmt->bindParam(":id_user", $_SESSION['user']['id']);
+                $stmt->bindParam(":date_post", date('Y-m-d'));
+                $stmt->execute();
+    
+    
+                header("Location: home.php");
+    
+            } else if ($_FILES['img_post']['type'] == "image/jpg") {
+                $fileName = $_SESSION['user']['id']."_".date('Y-m-d_H-i-s').".jpg";
+                $temporalRoot = $_FILES['img_post']['tmp_name'];
+                $finalRoot = 'post_img/' . $fileName;
+    
+                move_uploaded_file($temporalRoot, $finalRoot);
+    
+                $stmt = $conn->prepare("INSERT INTO posts (title, description, img_post, id_user, date_post) VALUES (:title, :description, :img_post, :id_user, :date_post)");
+                $stmt->bindParam(":title", $_POST['title']);
+                $stmt->bindParam(":description", $_POST['description']);
+                $stmt->bindValue(":img_post", $finalRoot);
+                $stmt->bindParam(":id_user", $_SESSION['user']['id']);
+                $stmt->bindParam(":date_post", date('Y-m-d'));
+                $stmt->execute();
+    
+                header("Location: home.php");
+    
+            } else if ($_FILES['img_post']['type'] == "image/jpeg") {
+                $fileName = $_SESSION['user']['id']."_".date('Y-m-d_H-i-s').".jpeg";
+                $temporalRoot = $_FILES['img_post']['tmp_name'];
+                $finalRoot = 'post_img/' . $fileName;
+    
+                move_uploaded_file($temporalRoot, $finalRoot);
+    
+                $stmt = $conn->prepare("INSERT INTO posts (title, description, img_post, id_user, date_post) VALUES (:title, :description, :img_post, :id_user, :date_post)");
+                $stmt->bindParam(":title", $_POST['title']);
+                $stmt->bindParam(":description", $_POST['description']);
+                $stmt->bindValue(":img_post", $finalRoot);
+                $stmt->bindParam(":id_user", $_SESSION['user']['id']);
+                $stmt->bindParam(":date_post", date('Y-m-d'));
+                $stmt->execute();
+    
+    
+                header("Location: home.php");
+            } else {
+                $finalRoot = "";
+                $error = "The post image must be jpg, png or jpeg";
+            } 
+        } else {
+            $error = "You have not selected any image";
+        }
     }
+
+    
 }
 ?>
 

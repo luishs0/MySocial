@@ -9,10 +9,6 @@ if (empty($_SESSION["user"])) {
     return;
 };
 
-if (empty($_SESSION["user"])) {
-    header("Location: index.php");
-    return;
-};
 
 $rootImgForm = $_SESSION['user']['profile_img'];
 $error = "";
@@ -21,9 +17,11 @@ $error = "";
 if (isset($_POST) && !empty($_POST)) {
     if ($_POST['username'] == "") {
         $error = "The username field must be completed";
-    } else if ($_FILES['profile_img']['size'] > 15000) {
-        $error = "The image is too heavy";
-    } else {
+     } 
+    // else if ($_FILES['profile_img']['size'] > 150000) {
+    //     $error = "The image is too heavy";
+    // } 
+    else {
         if (!empty($_FILES['profile_img']['name'] && ($_FILES['profile_img']['type'] == "image/png" || $_FILES['profile_img']['type'] == "image/jpg"  || $_FILES['profile_img']['type'] == "image/jpeg"))) {
 
             $fileName = $_FILES['profile_img']['name'];
