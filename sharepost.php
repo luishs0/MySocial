@@ -28,7 +28,6 @@ if (isset($_POST) && !empty($_POST)) {
                 $stmt->bindParam(":date_post", date('Y-m-d'));
                 $stmt->execute();
     
-    
                 header("Location: home.php");
     
             } else if ($_FILES['img_post']['type'] == "image/jpg") {

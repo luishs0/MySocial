@@ -17,6 +17,13 @@ $stmt->execute();
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // print_r($posts);
 
+$userConections = $conn->prepare("SELECT * FROM conections WHERE user2 = :user2");
+$userConections->bindParam(":user2", $_SESSION['user']['id']);
+$userConections->execute();
+$conections = $userConections->fetchAll(PDO::FETCH_ASSOC);
+
+// var_dump(count($conections));
+$followers = count($conections);
 ?>
 
 <div class="ms_container" style="width: 100%; height: calc(100vh - 4rem - 3rem); background-color: #f4f6fc; overflow:scroll;">
@@ -42,6 +49,10 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php } else { ?>
                     <p>Not bio yet</p>
                 <?php } ?>
+            </div>
+
+            <div class="followers d-flex justify-content-center mb-3">
+                <div class="followers-text"><strong>Followers:</strong> <?php echo $followers ?></div>           
             </div>
 
             <a class="btn btn-success" href="editprofile.php">Edit profile</a>

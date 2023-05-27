@@ -39,6 +39,15 @@ if (isset($_GET) && !empty($_GET) && $_GET['username'] != "") {
     } else {
         $getFollow = false;
     }
+
+    $userConections = $conn->prepare("SELECT * FROM conections WHERE user2 = :user2");
+    $userConections->bindParam(":user2", $user['id']);
+    $userConections->execute();
+    $conections = $userConections->fetchAll(PDO::FETCH_ASSOC);
+
+    // var_dump(count($conections));
+    $followers = count($conections);
+
 } else if ($_GET['username'] == "") {
     header("Location: people.php");
 } else {
@@ -72,6 +81,10 @@ if (isset($_GET) && !empty($_GET) && $_GET['username'] != "") {
                 <?php } else { ?>
                     <p></p>
                 <?php } ?>
+            </div>
+
+            <div class="followers d-flex justify-content-center mb-3">
+                <div class="followers-text"><strong>Followers: </strong> <?php echo " ".$followers ?> </div>
             </div>
 
             <?php if ($getFollow) { ?>
